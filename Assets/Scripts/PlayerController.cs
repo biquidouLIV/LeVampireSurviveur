@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Vector3 mousePosition;
+    [SerializeField] private float speed;
 
     private void Start()
     {
@@ -23,7 +24,7 @@ public class PlayerController : MonoBehaviour
             direction = mousePosition - gameObject.transform.position;
             direction.Normalize();
 
-            rb.linearVelocity = direction;
+            rb.linearVelocity = direction * speed;
             Debug.DrawLine(gameObject.transform.position, mousePosition);
         }
         else
