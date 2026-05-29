@@ -1,16 +1,20 @@
-using System;
+
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
     public Transform target;
-    public Vector3 destination;
+    private Vector3 destination;
+    [SerializeField] private GameObject coin;
+    
+    
+    [Header("stats")]
+    [Range(0f,1f)] [SerializeField] private float xpDropRate;
     [SerializeField] private float speed;
+    [SerializeField] private int damage = 1;
+    [SerializeField] private int hp = 100;
+    
 
-    private void Start()
-    {
-        //target = Transform du player
-    }
 
     private void Update()
     {
@@ -26,9 +30,7 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
+        if(Random.Range(0f,1f) < xpDropRate) Instantiate(coin);
         EnemyManager.instance.AddToPool(this.gameObject);
     }
-    
-
-    
 }

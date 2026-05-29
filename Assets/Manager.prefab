@@ -78,6 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   pauseMenu: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1 &9075004021806649165
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,3 +124,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyManager
   EnemyPrefab: {fileID: 6273782488247725619, guid: 30c7880b967b5324c91bb2e3de61b552, type: 3}
+  mapSize: {x: -10, y: 10}
+  spawnDistance: 4
