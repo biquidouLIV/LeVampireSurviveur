@@ -1,16 +1,25 @@
+using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private GameObject pauseMenu;
+
+    private void Start()
     {
-        
+        pauseMenu.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Pause()
     {
-        
+        pauseMenu.SetActive(!pauseMenu.activeSelf);
     }
+
+    public void LoadScene(int scene_index)
+    {
+        SceneManager.LoadScene(scene_index);
+    }
+    
+    
 }
