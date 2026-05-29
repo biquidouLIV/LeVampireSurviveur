@@ -106,8 +106,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   target: {fileID: 0}
-  destination: {x: 0, y: 0, z: 0}
+  coin: {fileID: 5044840335543866594, guid: 6c9139633c5d2184ba1c780c8fc2cf1f, type: 3}
+  xpDropRate: 0.3
   speed: 0.03
+  damage: 1
+  hp: 100
 --- !u!61 &5885739020406209516
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -138,7 +141,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0

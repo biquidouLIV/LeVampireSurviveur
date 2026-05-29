@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -10,8 +11,10 @@ public class EnemyManager : MonoBehaviour
     public static EnemyManager instance;
     private Queue<GameObject> EnemyPool = new Queue<GameObject>();
     
-
     [SerializeField] private GameObject EnemyPrefab;
+
+    [SerializeField] private Vector2 mapSize;
+    [SerializeField] private float spawnDistance;
      
     private void Awake()
     {
@@ -19,12 +22,16 @@ public class EnemyManager : MonoBehaviour
         else Destroy(this);
     }
 
-    private void Update()
+    private void Start()
     {
-        if (Keyboard.current.kKey.wasPressedThisFrame)
-        {
-            SpawnEnemy();
-        }
+        StartCoroutine(spawnLoop());
+    }
+
+    private IEnumerator spawnLoop()
+    {
+        SpawnEnemy();
+        yield return new WaitForSeconds(0.5f);
+        StartCoroutine(spawnLoop());
     }
 
 
@@ -45,15 +52,25 @@ public class EnemyManager : MonoBehaviour
 
     private void SpawnEnemy()
     {
+        bool goodSpawn = false;
         GameObject enemy = GetFromPool();
-        enemy.GetComponent<Enemy>().destination = new Vector2(Random.Range(-10f, 10f), Random.Range(-10f, 10f));    //a retirer quand on a le player
-        enemy.transform.position = new Vector2(Random.Range(-10f, 10f), Random.Range(-10f, 10f));                   //peut etre faire en sorte que ca spawn pas trop proche du player
+        enemy.GetComponent<Enemy>().target = GameManager.instance.player.transform;
+        while(!goodSpawn)
+        {
+
+            Vector3 spawnPoint;
+            spawnPoint = new Vector2(Random.Range(mapSize.x,mapSize.y), Random.Range(mapSize.x, mapSize.y));
+            
+            if (Vector3.Distance(spawnPoint, GameManager.instance.player.transform.position) < spawnDistance) continue;
+            enemy.transform.position = spawnPoint;
+            goodSpawn = true;
+        }
         enemy.SetActive(true);
     }
-    
-    
-    
-    
-    
-    
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(GameManager.instance.player.transform.position,spawnDistance);
+    }
 }
