@@ -67,10 +67,4 @@ public class EnemyManager : MonoBehaviour
         }
         enemy.SetActive(true);
     }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(GameManager.instance.player.transform.position,spawnDistance);
-    }
 }
